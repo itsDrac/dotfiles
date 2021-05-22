@@ -31,6 +31,7 @@ nmap <S-Tab> <<_    " Normal mode unindent with Tab
 imap <S-Tab> <C-D> <Esc> <i>  " insert mode unindent with tab
 vmap <Tab> >gv      " Visial mode indent with Tab
 vmap <S-Tab> <gv    " Visial mode unindent with Tab
+nmap <F5> :buffers<CR>:buffer!<Space>
 map <F5> :setlocal spell!<CR>
 
 " Here comes Plugins
@@ -45,6 +46,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -65,7 +68,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '-|-'
 let g:airline#extensions#tabline#formatter = 'default'
-autocmd VimEnter * AirlineTheme embark  " Auto Load airline themes on start up 
+autocmd VimEnter * AirlineTheme random  " Auto Load airline themes on start up 
 "autocmd VimEnter * AirlineTheme atomic  " Auto Load airline themes on start up 
 
 " Autocomplete Setting
@@ -78,3 +81,8 @@ inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
 inoremap <expr> <CR> pumvisible() ? "<C-y>" :"<CR>"
 inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
 
+" NerdTree Setting
+nmap <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
