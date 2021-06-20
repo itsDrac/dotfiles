@@ -16,7 +16,7 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set scrolloff=10
-set colorcolumn=80
+"set colorcolumn=80
 
 " Key Mapping
 map <C-h> <C-w>h 
@@ -32,7 +32,7 @@ imap <S-Tab> <C-D> <Esc> <i>  " insert mode unindent with tab
 vmap <Tab> >gv      " Visial mode indent with Tab
 vmap <S-Tab> <gv    " Visial mode unindent with Tab
 nmap <F5> :buffers<CR>:buffer!<Space>
-map <F5> :setlocal spell!<CR>
+map <F6> :setlocal spell!<CR>
 
 " Here comes Plugins
 call plug#begin('~/.vim/plugged')
@@ -40,7 +40,10 @@ Plug 'rakr/vim-one'
 Plug 'wadackel/vim-dogrun'
 Plug 'liuchengxu/space-vim-dark'
 Plug 'ghifarit53/tokyonight-vim'
+Plug 'sainnhe/sonokai'
+Plug 'drewtempelmeyer/palenight.vim'
 
+Plug 'mbbill/undotree'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -48,6 +51,9 @@ Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 
 call plug#end()
 
@@ -58,18 +64,21 @@ hi Comment cterm=italic
 
 let g:tokyonight_style = 'night' " available: night, storm
 let g:tokyonight_enable_italic = 1
+let g:sonokai_enable_italic = 1
+let g:sonokai_style = 'andromeda'
+let g:palenight_terminal_italics=1
 
-colorscheme tokyonight
+colorscheme palenight
 
-let g:user_emmet_leader_key='<TAB>' " Emmit works when press enter+,
+let g:user_emmet_leader_key='<TAB>' " Emmit works when press tab+,
 
 " Airline Setting
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '-|-'
 let g:airline#extensions#tabline#formatter = 'default'
-autocmd VimEnter * AirlineTheme random  " Auto Load airline themes on start up 
-"autocmd VimEnter * AirlineTheme atomic  " Auto Load airline themes on start up 
+"autocmd VimEnter * AirlineTheme one  " Auto Load airline themes on start up 
+autocmd VimEnter * AirlineTheme atomic  " Auto Load airline themes on start up 
 
 " Autocomplete Setting
 set complete+=kspell
@@ -86,3 +95,16 @@ nmap <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let g:NERDTreeIgnore = ['^build$', '^venv$']
+
+" Ctrl P Setting
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-stand']
+let g:ctrlp_use_caching = 0
+let g:ctrlp_show_hidden = 1
+set wildignore+=*/.git/*,*/venv/*,*/__pycache__/*,*/.env*,*/migrations/*,*/node_modules/*
+
+" Undotree Setting
+nnoremap <C-u> :UndotreeToggle<CR>
+let g:undotree_WindowLayout=1
+let g:undotree_ShortIndicators=1
+let g:undotree_SetFocusWhenToggl=1
