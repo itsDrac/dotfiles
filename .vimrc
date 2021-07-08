@@ -16,7 +16,8 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set scrolloff=10
-"set colorcolumn=80
+set colorcolumn=80
+set nowrap
 
 " Key Mapping
 map <C-h> <C-w>h 
