@@ -16,8 +16,10 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set scrolloff=10
-set colorcolumn=80
 set nowrap
+set foldmethod=manual
+
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " Key Mapping
 map <C-h> <C-w>h 
@@ -43,6 +45,9 @@ Plug 'liuchengxu/space-vim-dark'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'sainnhe/sonokai'
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'mangeshrex/everblush.vim'
 
 Plug 'mbbill/undotree'
 Plug 'vim-scripts/AutoComplPop'
@@ -55,6 +60,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'rust-lang/rust.vim'
+Plug 'preservim/nerdcommenter'
 
 call plug#end()
 
@@ -69,7 +76,8 @@ let g:sonokai_enable_italic = 1
 let g:sonokai_style = 'andromeda'
 let g:palenight_terminal_italics=1
 
-colorscheme palenight
+colorscheme everblush
+let ayucolor="mirage"
 
 let g:user_emmet_leader_key='<TAB>' " Emmit works when press tab+,
 
@@ -79,7 +87,9 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '-|-'
 let g:airline#extensions#tabline#formatter = 'default'
 "autocmd VimEnter * AirlineTheme one  " Auto Load airline themes on start up 
-autocmd VimEnter * AirlineTheme atomic  " Auto Load airline themes on start up 
+"autocmd VimEnter * AirlineTheme jellybeans  " Auto Load airline themes on start up 
+autocmd VimEnter * AirlineTheme deus  " Auto Load airline themes on start up 
+
 
 " Autocomplete Setting
 set complete+=kspell
@@ -102,10 +112,20 @@ let g:NERDTreeIgnore = ['^build$', '^venv$']
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-stand']
 let g:ctrlp_use_caching = 0
 let g:ctrlp_show_hidden = 1
-set wildignore+=*/.git/*,*/venv/*,*/__pycache__/*,*/.env*,*/migrations/*,*/node_modules/*
+set wildignore+=*/.git/*,*/venv/*,*/__pycache__/*,*/migrations/*,*/node_modules/*
 
 " Undotree Setting
 nnoremap <C-u> :UndotreeToggle<CR>
-let g:undotree_WindowLayout=1
+let g:undotree_WindowLayout=4
 let g:undotree_ShortIndicators=1
 let g:undotree_SetFocusWhenToggl=1
+let g:undotree_ShortIndicators=1
+let g:undotree_SplitWidth=25
+" Comment toggel Setting
+filetype plugin on
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+
+" fold Setting
+"autocmd bufenter *.yml set foldmethod=indent tabstop=2 softtabstop=2
+autocmd bufenter *.yml :setlocal spell!
